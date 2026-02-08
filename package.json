@@ -2,7 +2,7 @@
   "name": "prompt-management",
   "displayName": "Prompt Vault",
   "description": "Save and reuse prompts directly inside VS Code.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "dhanvina",
   "license": "MIT",
   "repository": {
