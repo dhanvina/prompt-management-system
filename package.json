@@ -13,11 +13,13 @@
     "onStartupFinished",
     "onCommand:promptVault.hello",
     "onCommand:promptVault.addPrompt",
+    "onCommand:promptVault.addPromptFromView",
     "onCommand:promptVault.listPrompts",
     "onCommand:promptVault.editPrompt",
     "onCommand:promptVault.deletePrompt",
     "onCommand:promptVault.insertPrompt",
-    "onView:promptVault.view"
+    "onView:promptVault.tree",
+    "onView:promptVault.form"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -33,9 +35,40 @@
     "views": {
       "promptVault": [
         {
-          "id": "promptVault.view",
-          "name": "Prompts",
-          "type": "webview"
+          "id": "promptVault.tree",
+          "name": "Prompts"
+        },
+        {
+          "id": "promptVault.form",
+          "name": "Editor",
+          "type": "webview",
+          "visibility": "hidden"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "promptVault.addPromptFromView",
+          "when": "view == promptVault.tree",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "promptVault.insertFromTree",
+          "when": "view == promptVault.tree",
+          "group": "inline"
+        },
+        {
+          "command": "promptVault.editFromTree",
+          "when": "view == promptVault.tree",
+          "group": "inline"
+        },
+        {
+          "command": "promptVault.deleteFromTree",
+          "when": "view == promptVault.tree",
+          "group": "inline"
         }
       ]
     },
@@ -63,6 +96,30 @@
       {
         "command": "promptVault.insertPrompt",
         "title": "Prompt Vault: Insert Prompt"
+      },
+      {
+        "command": "promptVault.insertFromTree",
+        "title": "Insert",
+        "icon": "$(run)"
+      },
+      {
+        "command": "promptVault.editFromTree",
+        "title": "Edit",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "promptVault.deleteFromTree",
+        "title": "Delete",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "promptVault.openAddForm",
+        "title": "Add Prompt"
+      },
+      {
+        "command": "promptVault.addPromptFromView",
+        "title": "Add Prompt",
+        "icon": "$(add)"
       }
     ],
     "keybindings": [
