@@ -1,23 +1,24 @@
 {
-  "name": "prompt-vault",
-  "displayName": "prompt-vault",
-  "description": "Save and reuse prompts inside VS Code",
-  "version": "0.0.1",
+  "name": "prompt-management",
+  "displayName": "Prompt Vault",
+  "description": "Save and reuse prompts directly inside VS Code.",
+  "version": "0.1.0",
+  "publisher": "dhanvina",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dhanvina/prompt-vault"
+  },
   "engines": {
-    "vscode": "^1.109.0"
+    "vscode": "^1.85.0"
   },
   "categories": [
-    "Other"
+    "AI",
+    "Snippets"
   ],
+  "icon": "images/icon.png",
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:promptVault.hello",
-    "onCommand:promptVault.addPrompt",
-    "onCommand:promptVault.addPromptFromView",
-    "onCommand:promptVault.listPrompts",
-    "onCommand:promptVault.editPrompt",
-    "onCommand:promptVault.deletePrompt",
-    "onCommand:promptVault.insertPrompt",
     "onView:promptVault.tree",
     "onView:promptVault.form"
   ],
@@ -73,10 +74,6 @@
       ]
     },
     "commands": [
-      {
-        "command": "promptVault.hello",
-        "title": "Prompt Vault: Hello"
-      },
       {
         "command": "promptVault.addPrompt",
         "title": "Prompt Vault: Add Prompt"
@@ -137,7 +134,7 @@
     "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/vscode": "^1.109.0",
+    "@types/vscode": "^1.85.0",
     "@types/node": "22.x",
     "typescript": "^5.9.3"
   }

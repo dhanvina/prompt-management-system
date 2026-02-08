@@ -65,7 +65,6 @@ class FormViewProvider implements vscode.WebviewViewProvider {
 		_context: vscode.WebviewViewResolveContext,
 		_token: vscode.CancellationToken,
 	): void {
-		console.log('Prompt Vault: Form view resolved');
 		formWebviewView = webviewView;
 		
 		webviewView.webview.options = {
@@ -288,11 +287,8 @@ function escapeHtml(text: string): string {
 }
 
 export async function activate(context: vscode.ExtensionContext) {
-	console.log('Prompt Vault: Activating...');
-
 	try {
 		await initializeStorage();
-		console.log('Prompt Vault: Storage initialized');
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
 		console.error('Prompt Vault: Storage initialization failed:', message);
@@ -303,14 +299,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Register TreeView provider
 	treeDataProvider = new PromptTreeDataProvider();
 	vscode.window.registerTreeDataProvider('promptVault.tree', treeDataProvider);
-	console.log('Prompt Vault: TreeView provider registered');
 
 	// Register FormView provider
 	formWebviewProvider = new FormViewProvider(context);
 	context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider(FormViewProvider.viewType, formWebviewProvider)
 	);
-	console.log('Prompt Vault: Form provider registered');
 
 	// Create status bar
 	statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
@@ -320,9 +314,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(statusBar);
 
 	const disposables = [
-		vscode.commands.registerCommand('promptVault.hello', () => {
-			vscode.window.showInformationMessage('Prompt Vault is active');
-		}),
 		vscode.commands.registerCommand('promptVault.addPromptFromView', async () => {
 			formWebviewProvider.showAddForm();
 		}),
@@ -384,7 +375,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	];
 
 	disposables.forEach(d => context.subscriptions.push(d));
-	console.log('Prompt Vault: Activation complete');
 }
 
 async function addPromptCommand() {

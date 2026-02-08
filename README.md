@@ -1,268 +1,105 @@
 # Prompt Vault
 
-Save and manage AI prompts directly inside VS Code. Local storage, zero setup.
+Save your favorite AI prompts inside VS Code and use them with one click.
 
-## Problem
+## What This Does
 
-You use AI tools daily. ChatGPT, Claude, Copilot, Cursor. Each time you write a
-good prompt, you copy-paste it from a notes app or browser history. You've
-bookmarked good prompts in a Google Doc. You ask the same questions repeatedly.
+- **Save prompts** - Keep your best AI prompts organized in VS Code instead of scattered in notes or browser tabs
+- **Quick access** - Insert any saved prompt into your code with a button click or keyboard shortcut
+- **Easy management** - Add, edit, and delete prompts without leaving VS Code
+- **Completely local** - Your prompts stay on your computer. No accounts, no cloud, no tracking
 
-Prompt Vault solves this: keep your best prompts inside VS Code, where you
-already are.
+## Who This Is For
 
-## Features
+Anyone who:
+- Uses AI tools (ChatGPT, Claude, Copilot) while coding
+- Has favorite prompts they use over and over
+- Wants quick access to their prompts right in VS Code
 
-- **Local storage** - Prompts live in `~/.prompt-vault/` as JSON. No cloud account required.
-- **Fast access** - Sidebar + keyboard shortcut to insert prompts while coding.
-- **Edit & organize** - Add, edit, and delete prompts without leaving VS Code.
-- **Simple format** - Prompts are stored as plain JSON. Easy to backup, sync, or version control.
-- **Zero telemetry** - No tracking, no analytics, no external requests.
-- **Lightweight** - Single sidebar panel. No complex UI. Minimal overhead.
-
-## Screenshots
-
-[Screenshot: Prompt Vault sidebar with list of prompts]
-
-[Screenshot: Adding a new prompt using the form panel]
-
-[Screenshot: Right-click context menu showing Insert, Edit, Delete actions]
-
-[Screenshot: Prompt being inserted into editor with clipboard indicator]
-
-## Installation
-
-### From VS Code Marketplace
+## How to Install
 
 1. Open VS Code
-2. Go to Extensions (Ctrl+Shift+X / Cmd+Shift+X)
-3. Search for "Prompt Vault"
-4. Click Install
+2. Press `Ctrl+Shift+X` (or `Cmd+Shift+X` on Mac) to open Extensions
+3. Search for **"Prompt Vault"**
+4. Click **Install**
 
-The extension will activate automatically on startup.
-
-### Manual Installation (Development)
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/prompt-vault.git
-   cd prompt-vault
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Compile TypeScript:
-   ```bash
-   npm run compile
-   ```
-
-4. Press F5 in VS Code to launch the extension in debug mode.
-
-5. To build for release:
-   ```bash
-   npm run vscode:prepublish
-   ```
+That's it! The extension is ready to use.
 
 ## How to Use
 
-### Adding a Prompt
+### Add Your First Prompt
 
-1. Open the Prompt Vault sidebar (Activity Bar on the left)
-2. Click the **+** button in the "Prompts" panel header
-3. Fill in the form:
-   - **Prompt ID**: A unique identifier (e.g., `code-review`, `write-docstring`)
-   - **Title**: Short human-readable name
+1. Look at the left sidebar - you'll see a bookmark icon labeled **"Prompt Vault"**
+2. Click on it (if not already open)
+3. Click the **+** button at the top of the "Prompts" section
+4. Fill in the form:
+   - **Prompt ID**: A short name like `code-review` (no spaces)
+   - **Title**: What you want to call it (e.g., "Code Reviewer")
    - **Description**: What this prompt does
-   - **Prompt Body**: The actual prompt text
-4. Click **Create**
+   - **Prompt Body**: Your actual prompt text
+5. Click **Create**
 
-Alternatively, use the Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`) and run:
-```
-Prompt Vault: Add Prompt
-```
+### Use a Saved Prompt
 
-### Editing a Prompt
+**Option 1: Using the sidebar**
+1. Click in your code editor where you want to insert the prompt
+2. In the Prompt Vault panel on the left, right-click any prompt
+3. Click **Insert**
+4. The prompt appears in your editor and is copied to your clipboard
+
+**Option 2: Using the keyboard shortcut (faster!)**
+1. Click in your code editor where you want the prompt
+2. Press `Ctrl+Alt+P` (Windows/Linux) or `Cmd+Alt+P` (Mac)
+3. A list appears - pick the prompt you want
+4. Done! It's inserted into your editor
+
+### Edit a Prompt
 
 1. In the Prompt Vault sidebar, right-click any prompt
 2. Click **Edit**
-3. Update the fields in the form panel
+3. Update the fields
 4. Click **Update**
 
-Or use Command Palette:
-```
-Prompt Vault: Edit Prompt
-```
+### Delete a Prompt
 
-### Deleting a Prompt
-
-1. In the sidebar, right-click any prompt
+1. In the Prompt Vault sidebar, right-click any prompt
 2. Click **Delete**
-3. Confirm the deletion
+3. Confirm when asked
 
-Or use Command Palette:
-```
-Prompt Vault: Delete Prompt
-```
+## Example Use Case
 
-### Inserting a Prompt
+You ask Claude to review code many times a day. Instead of typing the same request each time:
 
-**While editing code:**
+1. Save this as a prompt:
+   - **Title**: "Code Reviewer"
+   - **Prompt Body**: "Please review the following code for bugs, performance issues, and improvements:"
 
-1. Click in your editor where you want the prompt
-2. In the Prompt Vault sidebar, right-click a prompt
-3. Click **Insert**
+2. Now whenever you want code reviewed, press `Ctrl+Alt+P`, pick "Code Reviewer", and it's inserted automatically
 
-The prompt is automatically copied to your clipboard and inserted at the cursor.
-
-**Using keyboard shortcut:**
-```
-Ctrl+Alt+P (Windows/Linux)
-Cmd+Alt+P (Mac)
-```
-
-Opens a quick picker to select and insert a prompt.
-
-Alternatively, use Command Palette:
-```
-Prompt Vault: Insert Prompt
-```
+3. You just paste the code after it and ask Claude
 
 ## Keyboard Shortcuts
 
-| Shortcut | Action |
-|----------|--------|
-| `Ctrl+Alt+P` (Windows/Linux) | Insert prompt via quick picker |
-| `Cmd+Alt+P` (Mac) | Insert prompt via quick picker |
+- `Ctrl+Alt+P` (Windows/Linux) - Insert a prompt
+- `Cmd+Alt+P` (Mac) - Insert a prompt
 
-To customize these, edit your VS Code `keybindings.json` (Ctrl+K Ctrl+S):
+To change these shortcuts, go to VS Code Settings → Keyboard Shortcuts and search for "Prompt Vault".
 
-```json
-{
-  "command": "promptVault.insertPrompt",
-  "key": "your-preferred-key-combo"
-}
-```
+## Features
 
-## Project Structure
+- Save unlimited prompts
+- Organize prompts with descriptions
+- Insert prompts with one click
+- Fast keyboard shortcut access
+- Built-in default prompts to get started
+- No setup required
 
-```
-prompt-vault/
-├── src/
-│   ├── extension.ts         # Main extension entry point, command handlers
-│   └── promptStore.ts       # Storage abstraction layer (CRUD operations)
-├── out/                     # Compiled JavaScript (generated)
-├── package.json             # Extension manifest
-├── README.md
-└── tsconfig.json
-```
+## Configuration
 
-### Key Files
+No configuration needed. The extension works right out of the box.
 
-- **extension.ts** (600+ lines)
-  - Implements TreeDataProvider for the sidebar UI
-  - Registers all commands
-  - Manages WebView form for Add/Edit operations
-  - Handles prompt insertion and clipboard operations
-
-- **promptStore.ts** (130+ lines)
-  - Manages local JSON storage
-  - Implements getPrompts, addPrompt, updatePrompt, deletePrompt
-  - Handles file I/O and validation
-
-## Design Decisions
-
-### Local-First Storage
-
-Prompts are stored as JSON in `~/.prompt-vault/prompts.json`. No database, no
-server, no login. This means:
-
-- Your prompts are always available, online or offline
-- You own your data completely
-- Easy to version control or sync with third-party tools (Git, Syncthing, etc.)
-- Minimal attack surface (no server credentials to leak)
-
-### No Cloud Sync
-
-We intentionally do not offer cloud synchronization. If you need prompts across
-machines, use:
-
-- Git (commit `~/.prompt-vault/prompts.json`)
-- Syncthing
-- Dropbox / OneDrive (symlink your prompt vault)
-- Manual export/import via the file system
-
-This approach avoids complexity, costs, and privacy concerns.
-
-### No Telemetry
-
-We do not track usage, send data, or collect analytics. The extension makes no
-external network requests. Your prompts never leave your machine.
-
-### Minimal UI
-
-The sidebar uses VS Code's native TreeView API, matching the look and feel of
-the Explorer and Source Control panels. No custom styling, no bloat. The form
-for editing is a basic WebView with standard inputs.
-
-## Roadmap
-
-### Short Term (0.1.x)
-
-- [x] Add / Edit / Delete prompts
-- [x] TreeView sidebar
-- [x] Insert prompt into editor
-- [x] Keyboard shortcut
-
-### Medium Term (0.2.x)
-
-- [ ] Export prompts to JSON file
-- [ ] Import prompts from JSON file
-- [ ] Search/filter prompts in sidebar
-- [ ] Favorite/pin prompts
-
-### Long Term (0.3.x)
-
-- [ ] Prompt tagging/categorization
-- [ ] Snippet-style variable interpolation
-- [ ] Community prompt library (read-only, local)
-
-No features depend on external services or cloud infrastructure.
-
-## Contributing
-
-We welcome contributions. The codebase is intentionally kept small and readable.
-
-### Guidelines
-
-1. **Keep it minimal** - Every feature should be justified. No scope creep.
-2. **Local-only** - Do not add cloud features, telemetry, or external dependencies.
-3. **No major frameworks** - Use VS Code's native APIs.
-4. **TypeScript** - Code is written in TypeScript with strict type checking.
-5. **Test before submitting** - Run `npm run compile` and test in F5 debug mode.
-
-### Submitting Changes
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/my-feature`)
-3. Make your changes
-4. Compile and test locally (`npm run compile`, then F5)
-5. Commit with clear messages
-6. Push to your fork
-7. Open a pull request with a description of your changes
-
-### Areas We're Looking For Help
-
-- Documentation improvements
-- Bug reports and fixes
-- Small feature additions (with prior discussion)
-- Accessibility improvements
+Your prompts are saved locally in your home folder (`~/.prompt-vault/`).
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
-
-You are free to use, modify, and distribute this software for any purpose, as
-long as you include the license and copyright notice.
+MIT License - Free to use and modify.
