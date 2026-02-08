@@ -10,15 +10,35 @@
     "Other"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onCommand:promptVault.hello",
     "onCommand:promptVault.addPrompt",
     "onCommand:promptVault.listPrompts",
     "onCommand:promptVault.editPrompt",
     "onCommand:promptVault.deletePrompt",
-    "onCommand:promptVault.insertPrompt"
+    "onCommand:promptVault.insertPrompt",
+    "onView:promptVault.view"
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "promptVault",
+          "title": "Prompt Vault",
+          "icon": "$(bookmark)"
+        }
+      ]
+    },
+    "views": {
+      "promptVault": [
+        {
+          "id": "promptVault.view",
+          "name": "Prompts",
+          "type": "webview"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "promptVault.hello",
