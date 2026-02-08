@@ -10,7 +10,12 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:promptVault.hello"
+    "onCommand:promptVault.hello",
+    "onCommand:promptVault.addPrompt",
+    "onCommand:promptVault.listPrompts",
+    "onCommand:promptVault.editPrompt",
+    "onCommand:promptVault.deletePrompt",
+    "onCommand:promptVault.insertPrompt"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -18,6 +23,26 @@
       {
         "command": "promptVault.hello",
         "title": "Prompt Vault: Hello"
+      },
+      {
+        "command": "promptVault.addPrompt",
+        "title": "Prompt Vault: Add Prompt"
+      },
+      {
+        "command": "promptVault.listPrompts",
+        "title": "Prompt Vault: List Prompts"
+      },
+      {
+        "command": "promptVault.editPrompt",
+        "title": "Prompt Vault: Edit Prompt"
+      },
+      {
+        "command": "promptVault.deletePrompt",
+        "title": "Prompt Vault: Delete Prompt"
+      },
+      {
+        "command": "promptVault.insertPrompt",
+        "title": "Prompt Vault: Insert Prompt"
       }
     ]
   },

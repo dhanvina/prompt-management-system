@@ -126,3 +126,37 @@ export function getPrompts(): Prompt[] {
 export function getPromptById(id: string): Prompt | undefined {
 	return cachedPrompts.find(p => p.id === id);
 }
+
+export async function addPrompt(prompt: Prompt): Promise<void> {
+	if (cachedPrompts.some(p => p.id === prompt.id)) {
+		throw new Error(`Prompt with ID "${prompt.id}" already exists`);
+	}
+	cachedPrompts.push(prompt);
+	await savePrompts();
+}
+
+export async function updatePrompt(id: string, updates: Partial<Omit<Prompt, 'id'>>): Promise<void> {
+	const prompt = cachedPrompts.find(p => p.id === id);
+	if (!prompt) {
+		throw new Error(`Prompt with ID "${id}" not found`);
+	}
+	Object.assign(prompt, updates);
+	await savePrompts();
+}
+
+export async function deletePrompt(id: string): Promise<void> {
+	const index = cachedPrompts.findIndex(p => p.id === id);
+	if (index === -1) {
+		throw new Error(`Prompt with ID "${id}" not found`);
+	}
+	cachedPrompts.splice(index, 1);
+	await savePrompts();
+}
+
+async function savePrompts(): Promise<void> {
+	try {
+		await fs.writeFile(STORAGE_FILE, JSON.stringify(cachedPrompts, null, 2), 'utf-8');
+	} catch (error) {
+		throw new Error(`Failed to save prompts: ${error instanceof Error ? error.message : String(error)}`);
+	}
+}
