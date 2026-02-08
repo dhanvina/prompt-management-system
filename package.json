@@ -44,6 +44,14 @@
         "command": "promptVault.insertPrompt",
         "title": "Prompt Vault: Insert Prompt"
       }
+    ],
+    "keybindings": [
+      {
+        "command": "promptVault.insertPrompt",
+        "key": "ctrl+alt+p",
+        "mac": "cmd+alt+p",
+        "when": "editorTextFocus"
+      }
     ]
   },
   "scripts": {

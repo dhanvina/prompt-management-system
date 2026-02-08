@@ -1,14 +1,23 @@
 import * as vscode from 'vscode';
 import { initializeStorage, getPrompts, addPrompt, updatePrompt, deletePrompt } from './promptStore';
 
+let statusBar: vscode.StatusBarItem;
+
 export async function activate(context: vscode.ExtensionContext) {
 	try {
 		await initializeStorage();
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Prompt Vault: Failed to initialize storage - ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Storage initialization failed - ${message}`);
 		return;
 	}
+
+	// Create status bar indicator
+	statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+	statusBar.text = '$(bookmark) Prompt Vault: Ready';
+	statusBar.tooltip = 'Prompt Vault is active';
+	statusBar.show();
+	context.subscriptions.push(statusBar);
 
 	const disposables = [
 		vscode.commands.registerCommand('promptVault.hello', () => {
@@ -74,7 +83,7 @@ async function addPromptCommand() {
 		vscode.window.showInformationMessage(`✓ Prompt "${title}" added successfully`);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Failed to add prompt: ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Could not add prompt - ${message}`);
 	}
 }
 
@@ -83,7 +92,7 @@ async function listPromptsCommand() {
 		const prompts = getPrompts();
 
 		if (prompts.length === 0) {
-			vscode.window.showInformationMessage('No prompts available');
+			vscode.window.showInformationMessage('Prompt Vault: No prompts available yet');
 			return;
 		}
 
@@ -102,7 +111,7 @@ async function listPromptsCommand() {
 		vscode.window.showInformationMessage(`Prompt: ${selected.prompt.title}\n\n${selected.prompt.description}`);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Failed to list prompts: ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Could not list prompts - ${message}`);
 	}
 }
 
@@ -111,7 +120,7 @@ async function editPromptCommand() {
 		const prompts = getPrompts();
 
 		if (prompts.length === 0) {
-			vscode.window.showInformationMessage('No prompts available to edit');
+			vscode.window.showInformationMessage('Prompt Vault: No prompts available to edit');
 			return;
 		}
 
@@ -162,7 +171,7 @@ async function editPromptCommand() {
 		vscode.window.showInformationMessage(`✓ Prompt updated successfully`);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Failed to edit prompt: ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Could not update prompt - ${message}`);
 	}
 }
 
@@ -171,7 +180,7 @@ async function deletePromptCommand() {
 		const prompts = getPrompts();
 
 		if (prompts.length === 0) {
-			vscode.window.showInformationMessage('No prompts available to delete');
+			vscode.window.showInformationMessage('Prompt Vault: No prompts available to delete');
 			return;
 		}
 
@@ -200,7 +209,7 @@ async function deletePromptCommand() {
 		vscode.window.showInformationMessage(`✓ Prompt deleted successfully`);
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Failed to delete prompt: ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Could not delete prompt - ${message}`);
 	}
 }
 
@@ -209,7 +218,7 @@ async function insertPromptCommand() {
 		const prompts = getPrompts();
 
 		if (prompts.length === 0) {
-			vscode.window.showErrorMessage('No prompts available');
+			vscode.window.showInformationMessage('Prompt Vault: No prompts available yet');
 			return;
 		}
 
@@ -239,8 +248,12 @@ async function insertPromptCommand() {
 		vscode.window.showInformationMessage('Prompt inserted and copied to clipboard');
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);
-		vscode.window.showErrorMessage(`Failed to insert prompt: ${message}`);
+		vscode.window.showErrorMessage(`Prompt Vault: Failed to insert prompt - ${message}`);
 	}
 }
 
-export function deactivate() {}
+export function deactivate() {
+	if (statusBar) {
+		statusBar.dispose();
+	}
+}
