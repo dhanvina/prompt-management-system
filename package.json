@@ -2,7 +2,7 @@
   "name": "prompt-management",
   "displayName": "Prompt Vault",
   "description": "Save and reuse prompts directly inside VS Code.",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "publisher": "dhanvina",
   "license": "MIT",
   "repository": {
@@ -18,7 +18,6 @@
   ],
   "icon": "images/icon.png",
   "activationEvents": [
-    "onStartupFinished",
     "onView:promptVault.tree",
     "onView:promptVault.form"
   ],
@@ -52,24 +51,79 @@
         {
           "command": "promptVault.addPromptFromView",
           "when": "view == promptVault.tree",
-          "group": "navigation"
+          "group": "navigation@1"
+        },
+        {
+          "command": "promptVault.searchPrompts",
+          "when": "view == promptVault.tree",
+          "group": "navigation@2"
+        },
+        {
+          "command": "promptVault.clearSearch",
+          "when": "view == promptVault.tree",
+          "group": "navigation@3"
+        },
+        {
+          "command": "promptVault.createChain",
+          "when": "view == promptVault.tree",
+          "group": "overflow@1"
+        },
+        {
+          "command": "promptVault.importPrompts",
+          "when": "view == promptVault.tree",
+          "group": "overflow@2"
+        },
+        {
+          "command": "promptVault.exportPrompts",
+          "when": "view == promptVault.tree",
+          "group": "overflow@3"
         }
       ],
       "view/item/context": [
         {
           "command": "promptVault.insertFromTree",
-          "when": "view == promptVault.tree",
-          "group": "inline"
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "inline@1"
+        },
+        {
+          "command": "promptVault.toggleFavorite",
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "inline@2"
         },
         {
           "command": "promptVault.editFromTree",
-          "when": "view == promptVault.tree",
-          "group": "inline"
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "inline@3"
         },
         {
           "command": "promptVault.deleteFromTree",
-          "when": "view == promptVault.tree",
-          "group": "inline"
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "inline@4"
+        },
+        {
+          "command": "promptVault.previewPrompt",
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "context@1"
+        },
+        {
+          "command": "promptVault.viewHistory",
+          "when": "view == promptVault.tree && viewItem == prompt",
+          "group": "context@2"
+        },
+        {
+          "command": "promptVault.runChain",
+          "when": "view == promptVault.tree && viewItem == chain",
+          "group": "inline@1"
+        },
+        {
+          "command": "promptVault.editChain",
+          "when": "view == promptVault.tree && viewItem == chain",
+          "group": "inline@2"
+        },
+        {
+          "command": "promptVault.deleteChain",
+          "when": "view == promptVault.tree && viewItem == chain",
+          "group": "inline@3"
         }
       ]
     },
@@ -93,6 +147,61 @@
       {
         "command": "promptVault.insertPrompt",
         "title": "Prompt Vault: Insert Prompt"
+      },
+      {
+        "command": "promptVault.searchPrompts",
+        "title": "Prompt Vault: Search Prompts",
+        "icon": "$(search)"
+      },
+      {
+        "command": "promptVault.clearSearch",
+        "title": "Prompt Vault: Clear Search",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "promptVault.importPrompts",
+        "title": "Prompt Vault: Import Prompts",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "promptVault.exportPrompts",
+        "title": "Prompt Vault: Export Prompts",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "promptVault.toggleFavorite",
+        "title": "Toggle Favorite",
+        "icon": "$(star)"
+      },
+      {
+        "command": "promptVault.previewPrompt",
+        "title": "Preview Prompt",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "promptVault.viewHistory",
+        "title": "View History",
+        "icon": "$(history)"
+      },
+      {
+        "command": "promptVault.createChain",
+        "title": "Prompt Vault: Create Chain",
+        "icon": "$(add)"
+      },
+      {
+        "command": "promptVault.editChain",
+        "title": "Edit Chain",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "promptVault.deleteChain",
+        "title": "Delete Chain",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "promptVault.runChain",
+        "title": "Run Chain",
+        "icon": "$(run-all)"
       },
       {
         "command": "promptVault.insertFromTree",
@@ -125,6 +234,12 @@
         "key": "ctrl+alt+p",
         "mac": "cmd+alt+p",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "promptVault.searchPrompts",
+        "key": "ctrl+alt+f",
+        "mac": "cmd+alt+f",
+        "when": "focusedView == promptVault.tree"
       }
     ]
   },
