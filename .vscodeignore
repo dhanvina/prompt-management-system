@@ -2,10 +2,15 @@
 .vscode-test/**
 src/**
 .gitignore
+.dockerignore
 .yarnrc
 vsc-extension-quickstart.md
+Dockerfile
+MARKETPLACE_READY.md
+CHANGELOG.md
 **/tsconfig.json
 **/eslint.config.mjs
 **/*.map
 **/*.ts
 **/.vscode-test.*
+node_modules/**
